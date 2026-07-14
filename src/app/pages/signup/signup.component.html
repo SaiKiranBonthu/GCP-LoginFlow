@@ -1,0 +1,48 @@
+<div class="signup-container">
+       <div class="card">
+
+              @if (isLoading) {
+              <h2> Validating Marketplace purchase...</h2>
+              <p>
+                     Please wait.
+              </p>
+              }
+
+              @if (!isLoading && isSessionValid) {
+              <h1>Google Cloud Marketplace</h1>
+
+              <h3>Complete Your Account Setup</h3>
+
+              <p>
+                     Your Marketplace purchase
+                     information was received
+                     successfully.
+              </p>
+
+              <p>
+                     <strong>Procurement Account:</strong>
+                     {{ procurementAccountId }}
+              </p>
+
+              <p>
+                     Sign in with Google to complete
+                     your SaaS account setup.
+              </p>
+
+              <a routerLink="/signin" class="continue-button">
+                     Continue with Google
+              </a>
+              }
+
+              @if (!isLoading && !isSessionValid) {
+              <h2>
+                     Unable to Continue
+              </h2>
+
+              <p class="error-message">
+                     {{ errorMessage }}
+              </p>
+              }
+
+       </div>
+</div>
