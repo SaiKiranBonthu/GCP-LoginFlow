@@ -1,0 +1,25 @@
+# -------------------------
+# Angular
+# -------------------------
+GCP-LoginFlow/node_modules/
+GCP-LoginFlow/dist/
+GCP-LoginFlow/.angular/
+
+# -------------------------
+# FastAPI/Python
+# -------------------------
+fastapi-backend/.venv/
+fastapi-backend/.env
+fastapi-backend/**/__pycache__/
+fastapi-backend/**/*.pyc
+
+# -------------------------
+# VS Code
+# -------------------------
+.vscode/
+
+# -------------------------
+# Operating-system files
+# -------------------------
+.DS_Store
+Thumbs.db

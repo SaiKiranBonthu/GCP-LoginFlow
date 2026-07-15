@@ -1,0 +1,64 @@
+<div class="dashboard-container">
+    <div class="dashboard-card">
+
+        @if (isLoading) {
+        <h2>
+            Loading your profile...
+        </h2>
+        }
+
+        @if (!isLoading && user) {
+        <div class="header">
+            <div>
+                <h1>
+                    Hello World SaaS
+                </h1>
+                <p>
+                    Google Cloud Marketplace
+                </p>
+            </div>
+
+            <button type="button" class="logout-button" (click)="logout()">
+                Sign Out
+            </button>
+        </div>
+
+        <hr>
+
+        <div class="profile">
+            @if (user.picture) {
+            <img [src]="user.picture" alt="Google profile">
+            }
+
+            <div>
+                <h2>
+                    Welcome,
+                    {{ user.name }}
+                </h2>
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ user.email }}
+                </p>
+
+                <p>
+                    <strong>Role:</strong>
+                    {{ user.role }}
+                </p>
+
+                <p>
+                    <strong>Tenant:</strong>
+                    {{ user.tenant_id }}
+                </p>
+            </div>
+        </div>
+        }
+
+        @if (errorMessage) {
+        <p class="error">
+            {{ errorMessage }}
+        </p>
+        }
+
+    </div>
+</div>
