@@ -1,19 +1,21 @@
 steps:
-# Build the FastAPI container image
+# Step 0: Build the FastAPI Docker image
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'build'
+  - '-f'
+  - 'fastapi-backend/Dockerfile'
   - '-t'
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE_NAME}:$COMMIT_SHA'
-  - '.'
+  - 'fastapi-backend'
 
-# Push the image to Artifact Registry
+# Step 1: Push image to Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'push'
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE_NAME}:$COMMIT_SHA'
 
-# Deploy the image to Cloud Run
+# Step 2: Deploy image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
