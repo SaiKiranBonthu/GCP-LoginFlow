@@ -32,13 +32,14 @@
 from datetime import ( datetime, timezone )
 from uuid import uuid4
 
-from fastapi import ( APIRouter, Form, HTTPException )
+from fastapi import ( APIRouter, Form, HTTPException, Header )
 from fastapi.responses import ( RedirectResponse )
 
 from app.config import ( FRONTEND_URL, MARKETPLACE_JWT_AUDIENCE)
 from app.database.onboarding_repository import ( OnboardingRepository )
 from app.marketplace.token_verifier import ( verify_marketplace_token)
 from app.models.onboarding import ( OnboardingSession )
+from typing import Annotated
 
 router = APIRouter(
    prefix="/api/v1/marketplace",
@@ -47,12 +48,7 @@ router = APIRouter(
 
 @router.post("/signup")
 def marketplace_signup(
-   marketplace_token: str = Form(
-       ...,
-       alias=(
-           "x-gcp-marketplace-token"
-       )
-   )
+   marketplace_token:Annotated[ str, Header(alias=("x-gcp-marketplace-token"))]
 ):
    try:
        payload = (
