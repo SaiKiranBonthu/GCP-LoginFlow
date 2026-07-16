@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import {
  GoogleSigninButtonModule,
@@ -28,6 +28,8 @@ export class SigninComponent implements OnInit, OnDestroy {
  private apiService = inject(ApiService);
  private router = inject(Router);
  private authService = inject(AuthService);
+ private platformId = inject(PLATFORM_ID)
+
 
  private destroy$ = new Subject<void>();
  isLoading = false;
@@ -64,7 +66,12 @@ export class SigninComponent implements OnInit, OnDestroy {
    this.isLoading = true;
    this.errorMessage = '';
 
-   const onboardingSessionId = sessionStorage.getItem('marketplace_onboarding_session');
+   let onboardingSessionId: string | null = null;
+
+   if(isPlatformBrowser(this.platformId)){
+     onboardingSessionId = sessionStorage.getItem('marketplace_onboarding_session');
+   }
+
 
    this.apiService
      .googleLogin(googleIdToken, onboardingSessionId)

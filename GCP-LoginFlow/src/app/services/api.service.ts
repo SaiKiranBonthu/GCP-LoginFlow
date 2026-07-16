@@ -10,6 +10,7 @@ export class ApiService {
 
   private http = inject(HttpClient);
   private baseUrl = 'http://localhost:8000/api/v1';
+  // private baseUrl = 'https://marketplace-saas-backend-870553932901.asia-south1.run.app' + '/api/v1';
 
   signup(token: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/signup`, {

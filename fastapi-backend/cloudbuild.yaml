@@ -17,6 +17,7 @@ steps:
 
 # Step 2: Deploy image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+
   entrypoint: 'gcloud'
   args:
   - 'run'
@@ -29,6 +30,10 @@ steps:
   - '--platform'
   - 'managed'
   - '--allow-unauthenticated'
+  - '--add-cloudsql-instances'
+  - '${_INSTANCE_CONNECTION_NAME}'
+  - '--set-env-vars'
+  - 'DB_NAME=${_DB_NAME},DB_USER=${_DB_USER},DB_PASSWORD=${_DB_PASSWORD},INSTANCE_CONNECTION_NAME=${_INSTANCE_CONNECTION_NAME}'
 
 images:
 - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE_NAME}:$COMMIT_SHA'
@@ -38,6 +43,10 @@ substitutions:
   _REPOSITORY: 'marketplace-saas'
   _IMAGE_NAME: 'marketplace-saas-backend'
   _SERVICE_NAME: 'marketplace-saas-backend'
+  _DB_NAME: 'marketplace_saas'
+  _DB_USER: 'marketplace_app'
+  _INSTANCE_CONNECTION_NAME: 'amazeforgcp-public:us-central1:gcp-marketplace-postgresql'
+  _DB_PASSWORD: 'v\.X16/ed;m~F/;8'
 
 options:
   logging: CLOUD_LOGGING_ONLY

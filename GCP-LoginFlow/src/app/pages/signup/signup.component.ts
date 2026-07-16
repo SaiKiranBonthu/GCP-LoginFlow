@@ -26,8 +26,8 @@
 // }
 
 
-import { CommonModule } from '@angular/common';
-import { Component,OnInit,inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser} from '@angular/common';
+import { Component,OnInit,inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute,RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 
@@ -45,6 +45,8 @@ export class SignupComponent implements OnInit {
 
  private apiService = inject(ApiService);
 
+ private platformId = inject(PLATFORM_ID);
+
  onboardingSession = '';
  procurementAccountId = '';
  isLoading = true;
@@ -60,7 +62,10 @@ export class SignupComponent implements OnInit {
      return;
    }
 
-   sessionStorage.setItem('marketplace_onboarding_session',this.onboardingSession);
+   if(isPlatformBrowser(this.platformId)) {
+     sessionStorage.setItem('marketplace_onboarding_session',this.onboardingSession);
+   }
+
 
    this.validateSession();
  }
@@ -83,7 +88,10 @@ export class SignupComponent implements OnInit {
          this.isLoading = false;
          this.isSessionValid = false;
 
-         sessionStorage.removeItem('marketplace_onboarding_session');
+         if(isPlatformBrowser(this.platformId)) {
+           sessionStorage.removeItem('marketplace_onboarding_session');
+         }
+
 
          this.errorMessage = (
            error.error?.detail
