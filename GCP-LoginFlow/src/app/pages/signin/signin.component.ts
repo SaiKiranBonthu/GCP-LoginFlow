@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
-import {
- GoogleSigninButtonModule,
- SocialAuthService,
- SocialUser
-} from '@abacritt/angularx-social-login';
+// import {
+//  GoogleSigninButtonModule,
+//  SocialAuthService,
+//  SocialUser
+// } from '@abacritt/angularx-social-login';
 import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
  standalone: true,
  imports: [
    CommonModule,
-   GoogleSigninButtonModule
+  //  GoogleSigninButtonModule
  ],
  templateUrl: './signin.component.html',
  styleUrl: './signin.component.scss'
@@ -24,7 +24,7 @@ import { AuthService } from '../../services/auth.service';
 
 export class SigninComponent implements OnInit, OnDestroy {
 
- private socialAuthService = inject(SocialAuthService);
+//  private socialAuthService = inject(SocialAuthService);
  private apiService = inject(ApiService);
  private router = inject(Router);
  private authService = inject(AuthService);
@@ -36,28 +36,28 @@ export class SigninComponent implements OnInit, OnDestroy {
  errorMessage = '';
 
  ngOnInit(): void {
-   this.socialAuthService.authState
-     .pipe(takeUntil(this.destroy$))
-     .subscribe({
-       next: (googleUser: SocialUser) => {
-         if (!googleUser?.idToken) {
-           return;
-         }
-         console.log(
-           'Google user authenticated:',
-           googleUser.email
-         );
-         this.loginToBackend(googleUser.idToken);
-       },
-       error: (error) => {
-         console.error(
-           'Google authentication error:',
-           error
-         );
-         this.errorMessage =
-           'Google Sign-In failed. Please try again.';
-       }
-     });
+  //  this.socialAuthService.authState
+  //    .pipe(takeUntil(this.destroy$))
+  //    .subscribe({
+  //      next: (googleUser: SocialUser) => {
+  //        if (!googleUser?.idToken) {
+  //          return;
+  //        }
+  //        console.log(
+  //          'Google user authenticated:',
+  //          googleUser.email
+  //        );
+  //        this.loginToBackend(googleUser.idToken);
+  //      },
+  //      error: (error) => {
+  //        console.error(
+  //          'Google authentication error:',
+  //          error
+  //        );
+  //        this.errorMessage =
+  //          'Google Sign-In failed. Please try again.';
+  //      }
+  //    });
  }
 
  private loginToBackend(
