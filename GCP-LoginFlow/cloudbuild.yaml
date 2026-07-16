@@ -1,10 +1,12 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args:
-  - 'build'
-  - '-t'
+  - build
+  - -t
   - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE_NAME}:$COMMIT_SHA'
-  - '.'
+  - -f
+  - GCP-LoginFlow/Dockerfile
+  - GCP-LoginFlow
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'push'
